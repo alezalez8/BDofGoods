@@ -3,7 +3,9 @@ package shunin.org.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,15 +19,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    // @ManeToOne
-    @Column(name = "client_id")
-    private Long clientId;
-
-    //@OneToMany
-    @Column(name = "goods_id")
-    private Long goodsId;
 
     @Column(name = "create_date")
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<Goods> goodsList = new ArrayList<>();
 
 }

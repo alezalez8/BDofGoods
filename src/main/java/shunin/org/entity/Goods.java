@@ -30,9 +30,10 @@ public class Goods {
     @Column(name = "count")
     private int count;
 
-    // @ManeToOne
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "client_id")
+    private Order order;
+
 
 
 }

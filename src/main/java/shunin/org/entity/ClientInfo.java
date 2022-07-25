@@ -16,8 +16,9 @@ import java.time.LocalDateTime;
 public class ClientInfo {
 
     @Id
+    @Column(name = "info_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long info_id;
 
     @Column(name = "age")
     @Min(value = 0, message = "Age should be greater than 0" )
