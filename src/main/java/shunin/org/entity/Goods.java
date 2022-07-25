@@ -4,6 +4,7 @@ package shunin.org.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -13,6 +14,25 @@ import javax.persistence.*;
 public class Goods {
 
     @Id
+    @Column(name = "goods_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long goodsId;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "price")
+    private double price;
+
+    @Column(name = "add_date")
+    private Date addDate;
+
+    @Column(name = "count")
+    private int count;
+
+    // @ManeToOne
+    @Column(name = "order_id")
+    private Long orderId;
+
+
 }

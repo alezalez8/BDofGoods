@@ -13,12 +13,13 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Client")
+@Table(name = "Clients")
 public class Client {
 
     @Id
+    @Column(name = "client_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long clientId;
 
     @Column(name = "name")
     @NotEmpty(message = "Name should not be empty")
@@ -29,8 +30,5 @@ public class Client {
     @NotEmpty(message = "Surname should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     private String surename;
-
-
-
 
 }
