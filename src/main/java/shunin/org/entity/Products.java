@@ -1,17 +1,10 @@
 package shunin.org.entity;
 
 
-import jdk.jfr.Timestamp;
-import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import java.util.Date;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "Products")
 public class Products {
 
@@ -26,18 +19,53 @@ public class Products {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "add_date")
-    @Timestamp
-    private Date addDate;
 
     @Column(name = "count")
-    @Min(1)
+    @Min(value = 1)
     private int count;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "product_id")
-    private Order order;
+    public Products() {
+    }
 
+    public Long getProductId() {
+        return productId;
+    }
 
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "productId=" + productId +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                '}';
+    }
 }
