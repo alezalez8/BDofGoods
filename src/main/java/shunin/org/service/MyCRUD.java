@@ -10,7 +10,7 @@ public abstract class MyCRUD {
     private static EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(NAME);
     private static EntityManager entityManager = managerFactory.createEntityManager();
 
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
 

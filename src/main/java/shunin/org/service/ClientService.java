@@ -13,13 +13,12 @@ public class ClientService extends MyCRUD{
     EntityManager entityManager = getEntityManager();
 
     public List<Client> getAllClient() {
-        List<Client> clientList = new ArrayList<>();
+
 
         TypedQuery<Client> query = entityManager.createQuery("SELECT c FROM Client c", Client.class);
-        clientList = query.getResultList();
+         List<Client>  clientList = query.getResultList();
         return clientList;
-
-
-
     }
+
+
 }

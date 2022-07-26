@@ -2,11 +2,10 @@ package shunin.org;
 
 
 import shunin.org.entity.Client;
+import shunin.org.entity.Order;
 import shunin.org.service.ClientService;
+import shunin.org.service.OrderService;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +16,21 @@ public class Starter {
 
     public static void main(String[] args) {
         ClientService clientService = new ClientService();
+        OrderService orderService = new OrderService();
         List<Client> clientList = new ArrayList<>();
         clientList = clientService.getAllClient();
-        for (Client client :clientList
-        ) {
-            System.out.println(client);
+        printToConsole(clientList);
+        System.out.println("==============================");
+
+        List<Order> orderList = orderService.getAllOrder();
+        printToConsole(orderList);
+
+    }
+
+    public static <T> void printToConsole(List<T> list) {
+        for (T t: list
+             ) {
+            System.out.println(t);
         }
-
-
     }
 }
