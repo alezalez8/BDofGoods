@@ -3,6 +3,7 @@ package shunin.org.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.List;
 
 @Entity
 @Table(name = "Products")
@@ -23,6 +24,9 @@ public class Products {
     @Column(name = "count")
     @Min(value = 1)
     private int count;
+
+    @ManyToMany(mappedBy = "productsList")
+    private List<Order> orderList;
 
     public Products() {
     }
@@ -57,6 +61,14 @@ public class Products {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     @Override

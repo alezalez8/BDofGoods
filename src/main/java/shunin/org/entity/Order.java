@@ -4,6 +4,7 @@ import jdk.jfr.Timestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Orders")
@@ -25,6 +26,14 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "Orders_Products",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Products> productsList;
 
     public Order() {
     }
@@ -59,6 +68,14 @@ public class Order {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public List<Products> getProductsList() {
+        return productsList;
+    }
+
+    public void setProductsList(List<Products> productsList) {
+        this.productsList = productsList;
     }
 
     @Override
