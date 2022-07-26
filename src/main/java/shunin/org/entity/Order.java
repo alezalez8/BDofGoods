@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,19 +14,16 @@ import java.util.List;
 public class Order {
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
 
-    @Column(name = "create_date")
-    private Date date;
-
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<Goods> goodsList = new ArrayList<>();
+    private List<Products> productsList = new ArrayList<>();
 
 }

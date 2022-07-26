@@ -1,22 +1,24 @@
 package shunin.org.entity;
 
 
+import jdk.jfr.Timestamp;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Goods")
-public class Goods {
+@Table(name = "Products")
+public class Products {
 
     @Id
-    @Column(name = "goods_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long goodsId;
+    private Long productId;
 
     @Column(name = "title")
     private String title;
@@ -25,13 +27,15 @@ public class Goods {
     private double price;
 
     @Column(name = "add_date")
+    @Timestamp
     private Date addDate;
 
     @Column(name = "count")
+    @Min(1)
     private int count;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "client_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "product_id")
     private Order order;
 
 
