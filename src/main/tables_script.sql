@@ -2,6 +2,7 @@ drop table Client_info;
 drop table Products;
 drop table Orders;
 drop table Clients;
+drop table Orders_Products;
 
 
 create table Clients (
@@ -15,6 +16,7 @@ create table Orders(
                        client_id int NOT NULL,
                        create_date TIMESTAMP,
                        order_done boolean default true
+    /*foreign key (client_id) REFERENCES Clients(id)*/
 );
 
 create table Products(
@@ -73,11 +75,3 @@ INSERT INTO Products (title, price, count) VALUES ('Printer', 5880, 15);
 INSERT INTO Products (title, price, count) VALUES ('Tools', 1200, 24);
 INSERT INTO Products (title, price, count) VALUES ('Soft', 5000, 30);
 INSERT INTO Products (title, price, count) VALUES ('Monitor', 8850, 14);
-
-drop table Orders_Products;
-
-create table Orders_Products(
-                                order_id int REFERENCES Orders(id),
-                                product_id int REFERENCES Products(id),
-                                PRIMARY KEY (order_id, product_id)
-);

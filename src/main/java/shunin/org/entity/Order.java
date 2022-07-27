@@ -13,7 +13,7 @@ public class Order {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private int orderId;
 
     @Column(name = "create_date")
     @Timestamp
@@ -31,18 +31,18 @@ public class Order {
     @ManyToMany
     @JoinTable(
             name = "Orders_Products",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            joinColumns = @JoinColumn(name = "order_id"), // order_id
+            inverseJoinColumns = @JoinColumn(name = "product_id")) // product_id
     private List<Products> productsList;
 
     public Order() {
     }
 
-    public Long getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
