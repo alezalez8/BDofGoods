@@ -12,7 +12,7 @@ public class Products {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private Long productId;
 
     @Column(name = "title")
     private String title;
@@ -25,17 +25,17 @@ public class Products {
     @Min(value = 1)
     private int count;
 
-    @ManyToMany(mappedBy = "productsList")
+    @ManyToMany(mappedBy = "productsList", cascade = CascadeType.PERSIST)
     private List<Order> orderList;
 
     public Products() {
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

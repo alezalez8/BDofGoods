@@ -1,5 +1,6 @@
 package shunin.org.entity;
 
+import jdk.jfr.BooleanFlag;
 import jdk.jfr.Timestamp;
 
 import javax.persistence.*;
@@ -13,14 +14,14 @@ public class Order {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+    private Long orderId;
 
     @Column(name = "create_date")
     @Timestamp
     private Date createDate;
 
-    @Column(name = "order_done")
-    private boolean isOrderDone;
+    @Column(name = "order_done", nullable = false, columnDefinition = "BOOLEAN")
+    private boolean isOrderDone = true;
 
 
     @ManyToOne
@@ -31,18 +32,18 @@ public class Order {
     @ManyToMany
     @JoinTable(
             name = "Orders_Products",
-            joinColumns = @JoinColumn(name = "order_id"), // order_id
-            inverseJoinColumns = @JoinColumn(name = "product_id")) // product_id
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Products> productsList;
 
     public Order() {
     }
 
-    public int getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
