@@ -3,6 +3,7 @@ package shunin.org.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,14 +22,20 @@ public class Products {
     private double price;
 
 
-    @Column(name = "count")
+    @Column(name = "amount")
     @Min(value = 1)
-    private int count;
+    private int amount;
 
-    @ManyToMany(mappedBy = "productsList", cascade = CascadeType.PERSIST)
-    private List<Order> orderList;
+    @ManyToMany(mappedBy = "productsList", cascade = {CascadeType.ALL})
+    private List<Order> orderList = new ArrayList<>();
 
     public Products() {
+    }
+
+    public Products(String title, double price, int count) {
+        this.title = title;
+        this.price = price;
+        this.amount = count;
     }
 
     public Long getProductId() {
@@ -55,12 +62,12 @@ public class Products {
         this.price = price;
     }
 
-    public int getCount() {
-        return count;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setAmount(int count) {
+        this.amount = count;
     }
 
     public List<Order> getOrderList() {
@@ -73,11 +80,11 @@ public class Products {
 
     @Override
     public String toString() {
-        return "Products{" +
+        return "Product: [" +
                 "productId=" + productId +
                 ", title='" + title + '\'' +
                 ", price=" + price +
-                ", count=" + count +
-                '}';
+                ", count=" + amount +
+                ']';
     }
 }

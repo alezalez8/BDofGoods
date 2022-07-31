@@ -3,39 +3,103 @@ package shunin.org;
 
 import shunin.org.entity.Client;
 import shunin.org.entity.Order;
+import shunin.org.entity.Products;
 import shunin.org.service.ClientService;
+import shunin.org.service.FillDataBaseService;
 import shunin.org.service.OrderService;
+import shunin.org.service.ProductService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Starter {
-    private static final String NAME = "JPAofGoods";
 
 
     public static void main(String[] args) {
-        ClientService clientService = new ClientService();
-        OrderService orderService = new OrderService();
-        List<Client> clientList = new ArrayList<>();
-        clientList = clientService.getAllClient();
-        printToConsole(clientList);
-        System.out.println("==============================");
+        String NAME = "JPAofProducts";
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(NAME);
+        EntityManager entityManager = managerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
 
-        List<Order> orderList = orderService.getAllOrder();
+
+        ClientService clientService = new ClientService(entityManager, entityTransaction);
+        OrderService orderService = new OrderService(entityManager, entityTransaction);
+        ProductService productService = new ProductService(entityManager, entityTransaction);
+
+        // fill database
+        new FillDataBaseService(entityManager, entityTransaction).initDB();
+
+
+        System.out.println("=================All clients ================================");
+        List<Client> clientList = clientService.getAllClients();
+        printToConsole(clientList);
+        System.out.println("\n");
+        System.out.println("=================All products================================");
+        List<Products> productsList = productService.getAllProducts();
+        printToConsole(productsList);
+        System.out.println("\n");
+        System.out.println("=================Find product with id=10 =====================");
+        System.out.println(productService.findProductById(10L));
+        System.out.println("\n");
+        System.out.println("=================Update product with id=10 ===================");
+        productService.updateAndSave(8, 100, "something", 10L);
+        System.out.println(productService.findProductById(10L));
+        System.out.println("\n");
+        System.out.println("=================Delete product with id=8  ===================");
+        productService.deleteProduct(8L);
+        System.out.println("\n");
+        System.out.println("=================All products ================================");
+        printToConsole(productService.getAllProducts());
+        System.out.println("\n");
+        System.out.println("=================Get all order ===============================");
+        List<Order> orderList = orderService.getAllOrders();
         printToConsole(orderList);
-        System.out.println("==============================");
-        System.out.println(clientService.findById(5L));
-        System.out.println("==============================");
-        Client client = new Client("Test", "One");
-        clientService.addClient(client);
-        System.out.println("==============================");
+        System.out.println("\n");
+        System.out.println("=================Create new order =============================");
+        System.out.println("For client with id=2  assign to him products with id=4 and id=7");
+        orderService.makeOrder(2L, 4L, 7L);
+        System.out.println("\n");
+        System.out.println("=================Get all order ===============================");
+        orderList = orderService.getAllOrders();
+        printToConsole(orderList);
+        System.out.println("\n");
+        System.out.println("=================Delete  order with id=25 ======================");
+        orderService.deleteOrder(25L);
+        System.out.println("\n");
+
+        System.out.println("=================New client with new order  ====================");
+        Client newClient = new Client("Aleks", "Ivanov");
+        Products productOne = productService.findProductById(3L);
+        Products productTwo = productService.findProductById(5L);
+        Order newOrder = new Order(newClient, new ArrayList<>(List.of(productOne, productTwo)));
+        clientService.saveClientWithOrders(newClient, newOrder);
+        System.out.println("\n");
+
+        System.out.println("=================Get products for client with id = 2  ==========");
+        orderService.getProductsByClientId(2L);
+
+
+        // Close all
+
+        managerFactory.close();
+        entityManager.close();
+        managerFactory.close();
+
 
     }
 
     public static <T> void printToConsole(List<T> list) {
-        for (T t : list
-        ) {
-            System.out.println(t);
+        if (list != null) {
+            for (T t : list
+            ) {
+                System.out.println(t);
+            }
         }
     }
+
+
 }

@@ -1,9 +1,9 @@
 package shunin.org.entity;
 
-import jdk.jfr.BooleanFlag;
 import jdk.jfr.Timestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class Order {
 
     @Column(name = "create_date")
     @Timestamp
-    private Date createDate;
+    private Date createDate = new Date();
 
     @Column(name = "order_done", nullable = false, columnDefinition = "BOOLEAN")
     private boolean isOrderDone = true;
@@ -34,10 +34,25 @@ public class Order {
             name = "Orders_Products",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Products> productsList;
+    private List<Products> productsList = new ArrayList<>();
+
 
     public Order() {
     }
+
+
+    public Order(Client client, List<Products> productsList) {
+        this.client = client;
+        this.productsList = productsList;
+    }
+
+
+    public void setProductToOrder(Products... product) {
+        for (int i = 0; i < product.length; i++) {
+            productsList.add(product[i]);
+        }
+    }
+
 
     public Long getOrderId() {
         return orderId;
