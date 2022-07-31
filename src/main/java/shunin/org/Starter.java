@@ -84,10 +84,6 @@ public class Starter {
 
         // Close all
 
-        Scanner scanner = new Scanner(System.in);
-       // String nn = scanner.nextLine();
-        scanner.close();
-
         managerFactory.close();
         entityManager.close();
         managerFactory.close();
