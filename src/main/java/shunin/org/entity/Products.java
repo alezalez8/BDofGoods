@@ -26,7 +26,7 @@ public class Products {
     @Min(value = 1)
     private int amount;
 
-    @ManyToMany(mappedBy = "productsList", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "productsList", cascade = {CascadeType.MERGE})
     private List<Order> orderList = new ArrayList<>();
 
     public Products() {

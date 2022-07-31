@@ -14,6 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Starter {
@@ -46,7 +47,7 @@ public class Starter {
         System.out.println(productService.findProductById(10L));
         System.out.println("\n");
         System.out.println("=================Update product with id=10 ===================");
-        productService.updateAndSave(8, 100, "something", 10L);
+        productService.updateAndSave(8, 100, "SmartTV", 10L);
         System.out.println(productService.findProductById(10L));
         System.out.println("\n");
         System.out.println("=================Delete product with id=8  ===================");
@@ -67,20 +68,17 @@ public class Starter {
         orderList = orderService.getAllOrders();
         printToConsole(orderList);
         System.out.println("\n");
-        System.out.println("=================Delete  order with id=25 ======================");
-        orderService.deleteOrder(25L);
-        System.out.println("\n");
 
         System.out.println("=================New client with new order  ====================");
         Client newClient = new Client("Aleks", "Ivanov");
         Products productOne = productService.findProductById(3L);
         Products productTwo = productService.findProductById(5L);
-        Order newOrder = new Order(newClient, new ArrayList<>(List.of(productOne, productTwo)));
+        Order newOrder = new Order(newClient, new ArrayList<>(Arrays.asList(productOne, productTwo)));
         clientService.saveClientWithOrders(newClient, newOrder);
         System.out.println("\n");
 
-        System.out.println("=================Get products for client with id = 2  ==========");
-        orderService.getProductsByClientId(2L);
+        System.out.println("=================Get products for client with id = 10  ==========");
+        orderService.getProductsByClientId(10L);
 
 
         // Close all

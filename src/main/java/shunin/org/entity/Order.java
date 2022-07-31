@@ -29,7 +29,8 @@ public class Order {
     private Client client;
 
 
-    @ManyToMany
+   // @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Orders_Products",
             joinColumns = @JoinColumn(name = "order_id"),

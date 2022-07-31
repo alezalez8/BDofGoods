@@ -74,6 +74,7 @@ public class OrderService {
     public void getProductsByClientId(Long clientId) {
         List<Products> productsList;
         Client client = entityManager.getReference(Client.class, clientId);
+        System.out.println("== You choose client: " + client.getName() + " " + client.getSurename() + " ==");
         List<Order> orderList = client.getOrders();
         for (Order order: orderList
              ) {
