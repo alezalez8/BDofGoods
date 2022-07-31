@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class Orders {
 
     @Id
     @Column(name = "id")
@@ -29,8 +29,8 @@ public class Order {
     private Client client;
 
 
-   // @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    //@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Orders_Products",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -38,11 +38,11 @@ public class Order {
     private List<Products> productsList = new ArrayList<>();
 
 
-    public Order() {
+    public Orders() {
     }
 
 
-    public Order(Client client, List<Products> productsList) {
+    public Orders(Client client, List<Products> productsList) {
         this.client = client;
         this.productsList = productsList;
     }

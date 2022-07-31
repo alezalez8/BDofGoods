@@ -2,7 +2,7 @@ package shunin.org;
 
 
 import shunin.org.entity.Client;
-import shunin.org.entity.Order;
+import shunin.org.entity.Orders;
 import shunin.org.entity.Products;
 import shunin.org.service.ClientService;
 import shunin.org.service.FillDataBaseService;
@@ -16,6 +16,7 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Starter {
 
@@ -57,7 +58,7 @@ public class Starter {
         printToConsole(productService.getAllProducts());
         System.out.println("\n");
         System.out.println("=================Get all order ===============================");
-        List<Order> orderList = orderService.getAllOrders();
+        List<Orders> orderList = orderService.getAllOrders();
         printToConsole(orderList);
         System.out.println("\n");
         System.out.println("=================Create new order =============================");
@@ -73,7 +74,7 @@ public class Starter {
         Client newClient = new Client("Aleks", "Ivanov");
         Products productOne = productService.findProductById(3L);
         Products productTwo = productService.findProductById(5L);
-        Order newOrder = new Order(newClient, new ArrayList<>(Arrays.asList(productOne, productTwo)));
+        Orders newOrder = new Orders(newClient, new ArrayList<>(Arrays.asList(productOne, productTwo)));
         clientService.saveClientWithOrders(newClient, newOrder);
         System.out.println("\n");
 
@@ -82,6 +83,10 @@ public class Starter {
 
 
         // Close all
+
+        Scanner scanner = new Scanner(System.in);
+       // String nn = scanner.nextLine();
+        scanner.close();
 
         managerFactory.close();
         entityManager.close();

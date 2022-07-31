@@ -1,8 +1,7 @@
 package shunin.org.service;
 
 import shunin.org.entity.Client;
-import shunin.org.entity.Order;
-import shunin.org.entity.Products;
+import shunin.org.entity.Orders;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -41,10 +40,10 @@ public class ClientService {
         return entityManager.find(Client.class, id);
     }
 
-    public void saveClientWithOrders(Client client, Order... orders) {
+    public void saveClientWithOrders(Client client, Orders... orders) {
         entityTransaction.begin();
-        List<Order> orderList = new ArrayList<>();
-        for (Order order : orders
+        List<Orders> orderList = new ArrayList<>();
+        for (Orders order : orders
         ) {
             order.setClient(client);
             orderList.add(order);
@@ -52,7 +51,7 @@ public class ClientService {
         client.setOrders(orderList);
         try {
             entityManager.persist(client);
-            for (Order order : orders
+            for (Orders order : orders
             ) {
                 entityManager.persist(order);
             }

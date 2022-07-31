@@ -1,7 +1,7 @@
 package shunin.org.service;
 
 import shunin.org.entity.Client;
-import shunin.org.entity.Order;
+import shunin.org.entity.Orders;
 import shunin.org.entity.Products;
 
 import javax.persistence.EntityManager;
@@ -21,16 +21,16 @@ public class OrderService {
 
     }
 
-    public List<Order> getAllOrders() {
-        List<Order> orderList;
-        TypedQuery<Order> query = entityManager.createQuery("SELECT o FROM Order o", Order.class);
+    public List<Orders> getAllOrders() {
+        List<Orders> orderList;
+        TypedQuery<Orders> query = entityManager.createQuery("SELECT o FROM Orders o", Orders.class);
         orderList = query.getResultList();
         return orderList;
     }
 
-    public Order findOrderById(Long id) {
-        Order order;
-        order = entityManager.getReference(Order.class, id);
+    public Orders findOrderById(Long id) {
+        Orders order;
+        order = entityManager.getReference(Orders.class, id);
         if (order == null) {
             System.out.println("Can't find order with id = " + id);
         }
@@ -40,7 +40,7 @@ public class OrderService {
     public void deleteOrder(Long id) {
         entityTransaction.begin();
         try {
-            Order order = entityManager.getReference(Order.class, id);
+            Orders order = entityManager.getReference(Orders.class, id);
             entityManager.remove(order);
             entityTransaction.commit();
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class OrderService {
         for (int i = 0; i < idProducts.length; i++) {
             productsList.add(entityManager.find(Products.class, idProducts[i]));
         }
-        Order currentOrder = new Order(client, productsList);
+        Orders currentOrder = new Orders(client, productsList);
         entityTransaction.begin();
         try {
             entityManager.persist(currentOrder);
@@ -75,8 +75,8 @@ public class OrderService {
         List<Products> productsList;
         Client client = entityManager.getReference(Client.class, clientId);
         System.out.println("== You choose client: " + client.getName() + " " + client.getSurename() + " ==");
-        List<Order> orderList = client.getOrders();
-        for (Order order: orderList
+        List<Orders> orderList = client.getOrders();
+        for (Orders order: orderList
              ) {
             System.out.println("For ORDER # " + order.getOrderId());
             productsList = order.getProductsList();

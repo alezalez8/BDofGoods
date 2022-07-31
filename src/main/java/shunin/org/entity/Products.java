@@ -27,7 +27,7 @@ public class Products {
     private int amount;
 
     @ManyToMany(mappedBy = "productsList", cascade = {CascadeType.ALL})
-    private List<Order> orderList = new ArrayList<>();
+    private List<Orders> orderList = new ArrayList<>();
 
     public Products() {
     }
@@ -70,11 +70,11 @@ public class Products {
         this.amount = count;
     }
 
-    public List<Order> getOrderList() {
+    public List<Orders> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<Order> orderList) {
+    public void setOrderList(List<Orders> orderList) {
         this.orderList = orderList;
     }
 
