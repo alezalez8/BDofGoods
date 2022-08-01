@@ -71,10 +71,8 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "clientId=" + clientId +
-                ", name='" + name + '\'' +
-                ", surename='" + surename + '\'' +
-                '}';
+        return "Client with id=" + clientId +
+                ":  name='" + name + '\'' +
+                ", surename='" + surename;
     }
 }

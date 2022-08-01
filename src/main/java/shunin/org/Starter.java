@@ -16,7 +16,6 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Starter {
 
@@ -36,6 +35,7 @@ public class Starter {
         new FillDataBaseService(entityManager, entityTransaction).initDB();
 
 
+
         System.out.println("=================All clients ================================");
         List<Client> clientList = clientService.getAllClients();
         printToConsole(clientList);
@@ -44,6 +44,7 @@ public class Starter {
         List<Products> productsList = productService.getAllProducts();
         printToConsole(productsList);
         System.out.println("\n");
+
         System.out.println("=================Find product with id=10 =====================");
         System.out.println(productService.findProductById(10L));
         System.out.println("\n");
@@ -51,8 +52,10 @@ public class Starter {
         productService.updateAndSave(8, 100, "SmartTV", 10L);
         System.out.println(productService.findProductById(10L));
         System.out.println("\n");
+
         System.out.println("=================Delete product with id=8  ===================");
         productService.deleteProduct(8L);
+
         System.out.println("\n");
         System.out.println("=================All products ================================");
         printToConsole(productService.getAllProducts());
@@ -61,14 +64,18 @@ public class Starter {
         List<Orders> orderList = orderService.getAllOrders();
         printToConsole(orderList);
         System.out.println("\n");
+
         System.out.println("=================Create new order =============================");
         System.out.println("For client with id=2  assign to him products with id=4 and id=7");
         orderService.makeOrder(2L, 4L, 7L);
         System.out.println("\n");
         System.out.println("=================Get all order ===============================");
+
+
         orderList = orderService.getAllOrders();
         printToConsole(orderList);
         System.out.println("\n");
+
 
         System.out.println("=================New client with new order  ====================");
         Client newClient = new Client("Aleks", "Ivanov");
@@ -83,11 +90,8 @@ public class Starter {
 
 
         // Close all
-
         managerFactory.close();
         entityManager.close();
-        managerFactory.close();
-
 
     }
 
